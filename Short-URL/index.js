@@ -1,5 +1,8 @@
 const express = require("express");
 const urlRoute = require("./routes/url");
+const userRoute = require("./routes/user");
+const cookieParser = require("cookie-parser");
+const { restrictedToLoggedinUserOnly, checkAuth } = require("./middlewares/auth")
 const path =require("path");
 const staticRoute = require('./routes/staticRouter');
 
@@ -17,10 +20,12 @@ app.set('view engine',"ejs");
 app.set('views',path.resolve("./views"))
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(cookieParser());
 
-app.use("/url",urlRoute);
 
-app.use("/",staticRoute);
+app.use("/url", restrictedToLoggedinUserOnly ,urlRoute);
+app.use("/",checkAuth,staticRoute);
+app.use("/user",userRoute);
 
 app.get('/url/:shortId',async (req,res)=>{
   const shortId = req.params.shortId;

@@ -3,7 +3,9 @@ const jwt  = require("jsonwebtoken");
 const secret="Parthm"
 function setUser(user){
     return jwt.sign({
-        ...user
+        ...user,
+        _id: user._id,
+        role:user.role,
     },secret);
 }
 

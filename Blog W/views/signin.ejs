@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <%- include('./partials/head')  %>
-    <title>SignIn Page</title>
+  <%- include('./partials/head') %>
+  <title>Sign In Page</title>
 </head>
+
 <body>
-    <%- include('./partials/nav')  %>
-    <div class="container mt-4">
-        <form
-        action="/user/signin"
-        method="post"
-        >
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
-              <input
+  <%- include('./partials/nav') %>
+
+  <div class="container mt-5">
+    <h1 class="mb-4">Sign In</h1>
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <form action="/user/signin" method="post">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
               name="email"
-              type="email" class="form-control" id="email" aria-describedby="email">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input
+              type="email"
+              class="form-control"
+              id="email"
+              aria-describedby="emailHelp"
+              required
+            >
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
               name="password"
-              type="password" class="form-control" id="password">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+              type="password"
+              class="form-control"
+              id="password"
+              required
+            >
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign In</button>
+        </form>
+      </div>
     </div>
-    <%- include('./partials/script')  %>
+  </div>
+
+  <%- include('./partials/script') %>
 </body>
+
 </html>

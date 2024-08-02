@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const ejs = require("ejs");
 const path = require("path");
@@ -7,10 +9,12 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const { checkForAuthCookie } = require("./middleware/auth");
 const Blog = require('./models/blog');
-const app = express();
-const PORT = 8000;
 
-mongoose.connect('mongodb://localhost:27017/BlogSphere').then((e)=>{
+
+const app = express();
+const PORT = process.env.PORT || 8000;
+
+mongoose.connect(process.env.MONGO_URL).then((e)=>{
     console.log("MongoDb Connected");
 })
 
@@ -47,5 +51,5 @@ app.get('/', async (req, res) => {
   });
 
 app.listen(PORT,()=>{
-    console.log("Server Connected");
+    console.log("Server Connected at: ",PORT);
 })

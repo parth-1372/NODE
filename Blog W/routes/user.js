@@ -19,7 +19,8 @@ router.post('/signin',async (req,res)=>{
   try {
   const token = await User.matchPasswordAndGenerateToken(email,password);
   return res.cookie('token',token).render('home',{
-    user:req.user
+    user:req.user,
+    blogs:[],
   });
   } catch (error) {
     return res.render('signin',({
@@ -36,7 +37,9 @@ router.post('/signup',async (req,res)=>{
     email:email,
     password:password,
   });
-  return res.render('home');
+  return res.render('home',{
+    blogs:[],
+  });
 });
 
 router.get('/logout',(req,res)=>{

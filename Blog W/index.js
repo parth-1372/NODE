@@ -12,17 +12,27 @@ const Blog = require('./models/blog');
 
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.
+PORT || 8000;
 
-mongoose.connect(process.env.MONGO_URL).then((e)=>{
-    console.log("MongoDb Connected");
-})
+mongoose.set('strictQuery',false);
+
+const connectDB = async ()=>{
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URL);
+    console.log(`MonogDb connected : ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
 
 app.set('view engine','ejs');
 app.set('views',path.resolve("./views"));
 
 //MiddleWares
-// Error handling middleware should be added after all routes
+
 
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
@@ -50,6 +60,9 @@ app.get('/', async (req, res) => {
     }
   });
 
-app.listen(PORT,()=>{
+connectDB().then(()=>{
+  app.listen(PORT,()=>{
     console.log("Server Connected at: ",PORT);
 })
+})
+

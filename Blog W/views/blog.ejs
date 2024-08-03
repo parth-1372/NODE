@@ -17,7 +17,7 @@
 
   <div class="container mt-4">
     <div class="d-flex align-items-center">
-      <img src="<%= blog.createdBy.profileImageURL %>" width="50px" class="img-thumbnail me-2" alt="Profile Image">
+      <!-- <img src="<%= blog.createdBy.profileImageURL %>" width="50px" class="img-thumbnail me-2" alt="Profile Image"> -->
       <span><%= blog.createdBy.fullName %></span>
     </div>
   </div>
@@ -37,7 +37,7 @@
     <div class="mt-4">
       <% comments.forEach(comment => { %>
         <div class="d-flex mb-3">
-          <img src="<%= comment.createdBy.profileImageURL %>" width="50px" class="img-thumbnail me-2" alt="Commenter's Profile Image">
+          <!-- <img src="<%= comment.createdBy.profileImageURL %>" width="50px" class="img-thumbnail me-2" alt="Commenter's Profile Image"> -->
           <div>
             <strong><%= comment.createdBy.fullName %></strong>
             <p><%= comment.content %></p>

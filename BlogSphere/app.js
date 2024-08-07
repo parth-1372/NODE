@@ -12,20 +12,20 @@ const Blog = require('./models/blog');
 
 
 const app = express();
-const PORT = process.env.
-PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
 mongoose.set('strictQuery',false);
 
-const connectDB = async ()=>{
+const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URL);
-    console.log(`MonogDb connected : ${conn.connection.host}`);
+    console.log(`MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
-    console.log(error);
-    process.exit(1);
+    console.error('Failed to connect to MongoDB:', error);
+    process.exit(1); // Exit process with failure
   }
-}
+};
+
 
 
 app.set('view engine','ejs');
@@ -37,8 +37,8 @@ app.set('views',path.resolve("./views"));
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(checkForAuthCookie('token'));
-app.use(express.static(path.resolve("./public")));
 
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user',userRoute);
 
@@ -60,9 +60,11 @@ app.get('/', async (req, res) => {
     }
   });
 
-connectDB().then(()=>{
-  app.listen(PORT,()=>{
-    console.log("Server Connected at: ",PORT);
-})
-})
+  app.listen(PORT, () => {
+    console.log("Server running on port:", PORT);
+  });
+  connectDB().then(() => {
+     console.log("MONGODB Connected");
+  });
 
+ 
